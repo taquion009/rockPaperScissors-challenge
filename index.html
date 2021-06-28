@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Rock Paper Scissors</title>
+    <script
+      type="text/javascript"
+      src="https://cdn.scaledrone.com/scaledrone.min.js"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <img
+        src="./assets/img/logo.svg"
+        alt="title Rock Paper Scissor"
+        class="title"
+      />
+      <div class="contrainer-scode">
+        <sapn class="scode">score</sapn>
+        <span id="scode" class="scode-number">0</span>
+      </div>
+    </header>
+    <main>
+      <div id="home">
+        <div class="contrainer-movement">
+          <div class="movement paper" data-movement="paper">
+            <div class="container-img">
+              <img src="./assets/img/icon-paper.svg" />
+            </div>
+          </div>
+          <div class="movement scissors" data-movement="scissors">
+            <div class="container-img">
+              <img src="./assets/img/icon-scissors.svg" />
+            </div>
+          </div>
+          <div class="w-100">
+            <div class="movement rock" data-movement="rock">
+              <div class="container-img">
+                <img src="./assets/img/icon-rock.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="battle" class="oculto">
+        <div class="result" id="result">
+          <h3>YOU WIN</h3>
+          <button>PLAY AGAIN</button>
+        </div>
+      </div>
+      <div class="contrainer-modal oculto" id="contrainer-modal">
+        <div class="modal" id="modal">
+          <h3>RULES</h3>
+          <img class="rules" src="assets/img/image-rules.svg" />
+          <img class="close" id="close" src="assets/img/icon-close.svg" />
+        </div>
+      </div>
+      <div id="multiplayer" class="multiplayer oculto">
+        <div class="option-multiplayer" id="option-multiplayer">
+          <form onsubmit="return false;">
+          <input type="text" placeholder="NAME" name="name" id="name" required pattern="^[A-Za-z\d\s]{1,15}$" title="Three letter country code"/>
+          <button type="submit" id="create">CREATE ROOM</button>
+          <button type="submit" id="join">JOIN ROOM</button>
+          </form>
+        </div>
+        <div class="contrainer-join oculto" id="contrainer-join">
+          <button id="back">BACK</button>
+          <form onsubmit="return false;" id="join-form">
+            <input type="text" placeholder="CODE ROOM" name="code" required pattern="^[A-Za-z\d]{6}$"/>
+            <button type="submit">JOIN</button>
+          </form>
+        </div>
+        <div class="content oculto">
+          <form class="footer" onsubmit="return false;">
+            <input type="text" placeholder="Your message.." />
+            <button type="submit">Enter</button>
+          </form>
+        </div>
+        <div id="home-multiplayer" class="oculto">
+          <div id="container-vs" class="container-vs">
+            <div class="player" id="player-1">...</div>
+            <div class="vs">VS</div>
+            <div class="player" id="player-2">anonymous</div>
+          </div>
+          <div class="contrainer-movement">
+            <div class="movement paper" data-movement="paper">
+              <div class="container-img">
+                <img src="./assets/img/icon-paper.svg" />
+              </div>
+            </div>
+            <div class="movement scissors" data-movement="scissors">
+              <div class="container-img">
+                <img src="./assets/img/icon-scissors.svg" />
+              </div>
+            </div>
+            <div class="w-100">
+              <div class="movement rock" data-movement="rock">
+                <div class="container-img">
+                  <img src="./assets/img/icon-rock.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="battle-multiplayer" class="oculto">
+        </div>
+      </div>
+    </main>
+    <div
+      class="contrainer-modal-multiplayer oculto"
+      id="contrainer-modal-multiplayer"
+    >
+      <div class="modal" id="modal">
+        <h3 id="code">code: 23j4h3</h3>
+        <p>waiting player...</p>
+        <img class="close-multiplayer" id="close-multiplayer" src="assets/img/icon-close.svg" />
+      </div>
+    </div>
+    <div class="contrainer-rules">
+      <button id="rules">RULES</button>
+      <button id="button-multiplayer">MULTIPLAYER</button>
+      <button id="exit" class="exit oculto">EXIT</button>
+    </div>
+    <div class="loader oculto" id="loader">
+      <div></div>
+      <button>CANCEL</button>
+    </div>
+    <div class="close-player oculto" id="close-player">
+      <div>
+        <p>the player left the game</p>
+        <button id="back-multiplayer">GO BACK</button>
+      </div>
+    </div>
+    <div class="wait-player oculto" id="wait-player">
+      <div>
+        <p>waiting for a response form the player...</p>
+      </div>
+    </div>
+    <script src="main.js"></script>
+    <script src="multiplayer.js"></script>
+  </body>
+</html>

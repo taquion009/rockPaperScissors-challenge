@@ -1,0 +1,720 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap');
+:root{
+    --Dark-Text: hsl(229, 25%, 31%);
+    --Score-Text: hsl(229, 64%, 46%);
+    --Header-Outline: hsl(217, 16%, 45%);
+    --Radial-Gradient:radial-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+    --Scissors-Gradient1: hsl(39, 89%, 49%);
+    --Scissors-Gradient2: hsl(40, 84%, 53%);
+    --Paper-Gradient1: hsl(230, 89%, 62%);
+    --Paper-Gradient2: hsl(230, 89%, 65%);
+    --Rock-Gradient1: hsl(349, 71%, 52%);
+    --Rock-Gradient2: hsl(349, 70%, 56%);
+    --Lizard-Gradient: linear-gradient(90deg, hsl(261, 73%, 60%), hsl(261, 72%, 63%));
+    --Cyan: linear-gradient(90deg, hsl(189, 59%, 53%), hsl(189, 58%, 57%));
+}
+
+html{
+    min-height: 100%;
+    height: 100%;
+}
+
+body{
+    background:var(--Radial-Gradient);
+    font-size:90%;
+    box-sizing:border-box;
+    font-family:'Barlow Semi Condensed', sans-serif;
+    font-weight:600;
+    min-height: 100vh;
+    padding-top: 3em;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+*,*>::after,*>::before,*::after,*::before{
+    box-sizing:inherit;
+    padding:0;
+    margin:0;
+    font-size: inherit;
+}
+
+.oculto{
+    display:none !important;
+}
+
+header{
+    margin: 2em;
+    display: flex;
+    padding: .5em;
+    align-items: center;
+    justify-content: space-between;
+    border:2px solid var(--Header-Outline);
+    border-radius:5px;
+    max-width: 1366px;
+    margin-top:0;
+    width: calc(100% - 4rem);
+}
+
+header > img{
+    width:5em;
+    margin-left:7px;
+}
+
+header .contrainer-scode{
+    width:5em;
+    height:4.5em;
+    background-color:#ffffff;
+    border-radius:5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+header .contrainer-scode .scode{
+    font-size:1em;
+    color:var(--Score-Text);
+    font-weight: 700;
+}
+
+header .contrainer-scode .scode-number{
+    font-size:2.5em;
+    color:var(--Dark-Text);
+    font-weight: 700;
+    position: relative;
+    top: -.15em;;
+}
+
+main{
+    margin:0 auto;
+    max-width:2500px;
+}
+
+main .contrainer-movement,main .contrainer-movement-select{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position:relative;
+    margin:auto;
+    margin-top:1em;
+    width: fit-content;
+}
+
+main .contrainer-movement-select{
+    width: 100%;
+    margin-top: 0em;
+}
+
+main .contrainer-movement::after{
+    content: "";
+    display: block;
+    position: absolute;
+    background: url(./assets/img/bg-triangle.svg) no-repeat;
+    background-size: cover;
+    width: 50%;
+    height: 50%;
+    z-index: -1;
+    left: calc(50% - 25%);
+}
+
+main .contrainer-movement .movement,main .contrainer-movement-select .movement{
+    width: 7em;
+    height:7em;
+    border-radius: 100%;
+    background-color:#ffffff;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+    cursor:pointer;
+    position: relative;
+}
+
+main .contrainer-movement-select .movement{
+    width: 7em;
+    height:7em;
+    cursor:auto;
+}
+main .contrainer-movement-select .movementWait{
+    width: 7em;
+    height:7em;
+    background-color: rgba(0, 0, 0, 0.26);
+    border-radius: 100%;
+    cursor:auto;
+}
+main .contrainer-movement-select .movement h4{
+    position:absolute;
+    white-space: nowrap;
+    top: calc(100% + 1.5em);
+    color:#ffffff;
+}
+
+main .contrainer-movement .paper,main .contrainer-movement-select .paper{
+    border-radius: 50%;
+    background-image: linear-gradient(var(--Paper-Gradient1),var(--Paper-Gradient2));
+    box-shadow: 2px 5px hsl(230deg 70% 38%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+main .contrainer-movement .rock,main .contrainer-movement-select .rock{
+    border-radius: 50%;
+    background-image: linear-gradient(var(--Rock-Gradient1),var(--Rock-Gradient2));
+    box-shadow: 2px 5px hsl(349deg 73% 29%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+main .contrainer-movement .scissors,main .contrainer-movement-select .scissors{
+    border-radius: 50%;
+    background-image: linear-gradient(var(--Scissors-Gradient1),var(--Scissors-Gradient2));
+    box-shadow: 2px 5px hsl(39deg 64% 35%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+main .contrainer-movement .container-img,main .contrainer-movement-select  .container-img{
+    background-color:#ffffff;
+    width: 80%;
+    height:80%;
+    border-radius:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0px 6px 0px 0px hsl(0deg 0% 84%);
+}
+
+main .contrainer-movement .container-img img{
+    width:2.5em;
+    height:auto;
+}
+
+main .contrainer-movement-select  .container-img img{
+    width:2.5em;
+    height:auto;
+}
+
+.w-100{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contrainer-rules{
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.contrainer-rules button{
+    margin: auto;
+    display: block;
+    padding: .8em 0em;
+    border: 1px solid #eee;
+    background: none;
+    color: #eee;
+    font-size: 1em;
+    outline: none;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin:1rem auto;
+    width: 13em;
+}
+.contrainer-rules #button-multiplayer{
+    margin-bottom: auto;
+}
+main {
+    width: 100%;
+}
+
+main .contrainer-modal{
+    width: 100vw;
+    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color: #0000004f;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    z-index: 999;
+}
+
+main .contrainer-modal .modal{
+    background-color:#ffffff;
+    width:100%;
+    height:100%;
+    padding:2em;
+    text-align: center;
+    position: relative;
+}
+
+main .contrainer-modal .modal h3{
+    font-size:2em;
+    color:var(--Dark-Text);
+    width: 100%;
+    margin:2em 0;
+}
+
+main .contrainer-modal .modal .rules{
+    width: 19.5em;
+    max-width: 100%;
+}
+
+main .contrainer-modal .modal .close{
+    position:absolute;
+    top:90%;
+    left:calc(50% - .75em);
+    width: 1.5em;
+    cursor: pointer;
+}
+
+main .result{
+    margin: auto;
+    margin-top: 4em;
+    text-align: center;
+    position: absolute;
+    top: 80%;
+}
+
+main .result h3{
+    font-size: 3em;
+    color: #ffffff;
+}
+
+main .result button{
+    padding: 1em 4em;
+    margin-top: .7em;
+    border-radius: .7em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--Dark-Text);
+}
+
+.win > .container-img{
+    animation-duration: .5s;
+    animation-name: animationWin;
+}
+main .multiplayer{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+    border-radius: 5px;
+    /* max-width: 35em; */
+    margin: auto;
+    margin-top: 1em;
+    padding:2em;
+}
+
+main .multiplayer button{
+    margin: auto;
+    display: block;
+    padding: .8em 3em;
+    border: 1px solid #eee;
+    background: none;
+    color: #eee;
+    font-size: 1em;
+    outline: none;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin:1rem auto;
+}
+
+main .multiplayer .option-multiplayer{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+main .multiplayer input[type="text"]{
+    margin: auto;
+    display: block;
+    padding: .8em 3em;
+    border: 1px solid #eee;
+    background: none;
+    color: #eee;
+    font-size: 1em;
+    outline: none;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    margin: 1rem auto;
+    max-width: 100%;
+}
+main .multiplayer .contrainer-join{
+    width: 100%;
+}
+
+main .multiplayer .contrainer-join > button{
+    margin-left: 0;
+}
+
+main .multiplayer #battle-multiplayer{
+    width: 100%;
+}
+
+.contrainer-modal-multiplayer{
+    width: 100vw;
+    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color: #0000004f;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    z-index: 999;
+}
+
+.contrainer-modal-multiplayer .modal{
+    background-color:#ffffff;
+    padding:2em;
+    text-align: center;
+    position: relative;
+    width:auto;
+    height:auto;
+    border-radius: 0.5em;
+    position:relative;
+}
+
+.contrainer-modal-multiplayer .modal{
+    background-color:#ffffff;
+    padding:2em;
+    text-align: center;
+    position: relative;
+    width:auto;
+    height:auto;
+    border-radius: 0.5em;
+    position:relative;
+}
+
+.contrainer-modal-multiplayer .modal h3{
+    font-size:2em;
+    color:var(--Dark-Text);
+    width: 100%;
+    margin:2em 0;
+}
+.contrainer-modal-multiplayer .modal .close-multiplayer{
+    position: absolute;
+    top: 1.5em;
+    left: calc(100% - 3em);
+    width: 1.5em;
+    cursor: pointer;
+}
+
+#code {
+    padding: .5em;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 700;
+    border-radius: .2em;
+}
+
+main .container-vs{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.5em;
+    color: #fff;
+    position: relative;
+    text-align: center;
+}
+main .container-vs .player{
+    width: 7em;
+}
+main .container-vs .vs{
+    position: absolute;
+}
+
+main .multiplayer .result button{
+    padding: 1em 4em;
+    margin-top: .7em;
+    border-radius: .7em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--Dark-Text);
+    background: #fff;
+}
+
+@keyframes animationWin {
+    0%{
+        box-shadow:  0px 0px 0px 2em rgb(204 204 204 / 15%);
+    }
+    50%{
+        box-shadow:  0px 0px 0px 2em rgb(204 204 204 / 15%), 0px 0px 0px 3em rgb(204 204 204 / 10%);
+    }
+    100%{
+        box-shadow:  0px 0px 0px 2em rgb(204 204 204 / 15%), 0px 0px 0px 3em rgb(204 204 204 / 10%), 0px 0px 0px 4em rgb(204 204 204 / 5%);
+    }
+
+}
+
+.loader{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0000004f;
+    top:0;
+    left:0;
+}
+
+.loader > div{
+    width: 6em;
+    height: 6em;
+    animation: 2s loader infinite ease-out;
+    position:absolute;
+    top:calc(50% - 3em);
+    left:calc(50% - 3em);
+    background:url("./assets/img/icon-paper.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.loader > button{
+    background: none;
+    width: 6em;
+    outline: none;
+    border: none;
+    border-radius: .7em;
+    cursor: pointer;
+    font-weight: 700;
+    color: hsl(0deg 0% 100%);
+    position: absolute;
+    top: calc(50% + 4.5em);
+    left: calc(50% - 3em);
+}
+
+@keyframes loader {
+    0%{
+        background:url("./assets/img/icon-paper.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    50%{
+        background:url("./assets/img/icon-rock.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    100%{
+        background:url("./assets/img/icon-scissors.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+}
+
+.close-player{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0000004f;
+    top:0;
+    left:0;
+}
+
+.close-player > div{
+    width: 14em;
+    position:absolute;
+    top:calc(50% - 7em);
+    left:calc(50% - 7em);
+    background:#fff;
+    border-radius:1em;
+    text-align: center;
+    padding:2em
+}
+
+.close-player > div > *{
+    margin:1em auto;
+}
+
+.close-player > div button{
+    background:none;
+    outline: none;
+    border: none;
+    border-radius: .7em;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--Dark-Text);
+}
+.wait-player{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top:0;
+    left:0;
+}
+
+.wait-player > div{
+    width: 14em;
+    position:absolute;
+    top:calc(50% - 7em);
+    left:calc(50% - 7em);
+    background:#fff;
+    border-radius:1em;
+    text-align: center;
+    padding:2em
+}
+
+.wait-player > div > *{
+    margin:1em auto;
+}
+
+@media (min-width:300px){
+    body{
+        font-size:100%;
+    }
+}
+@media (min-width:700px){
+    body{
+        font-size:90%;
+        justify-content: flex-start;
+    }
+
+    main .contrainer-modal .modal{
+        width:auto;
+        height:auto;
+        border-radius: 0.5em;
+    }
+    main .contrainer-modal .modal h3{
+        font-size:2em;
+        width: 100%;
+        margin:0;
+        text-align: left;
+        margin-bottom: 1em;
+    }
+    main .contrainer-modal .modal .close{
+        top: calc(0% + 1em);
+        left: calc(100% - 2.5em);
+    }
+    header{
+        max-width:35em;
+        margin:0 auto;
+        width:100%;
+        border:4px solid var(--Header-Outline);
+    }
+
+    main .contrainer-movement .movement{
+        width: 10em;
+        height:10em;
+    }
+
+    main .contrainer-movement .container-img img{
+        width:3.5em;
+        height:auto;
+    }
+    main .contrainer-movement-select .movement{
+        width: 10em;
+        height:10em;
+        flex-direction: column-reverse;
+        display:flex;
+        justify-content: center;
+    }
+
+    header > img{
+        width:7em;
+    }
+    header .contrainer-scode{
+        width:7em;
+        height:6.5em;
+    }
+
+    .contrainer-rules{
+        width: 100%;
+        position: absolute;
+        top: 90%;
+        left: 0%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .contrainer-rules button{
+        margin: auto;
+    }
+    main .result{
+        top: auto;
+    }
+    main .result{
+        margin:0 auto;
+    }
+    main .contrainer-movement-select {
+        margin-top: 2em;
+    }
+
+}
+
+@media (min-width:1500px){
+    body{
+        font-size:100%;
+    }
+}
+
+@media (min-width:1600px){
+    body{
+        font-size:120%;
+    }
+}
+
+@media (min-width:1800px){
+    body{
+        font-size:150%;
+    }
+}
+
+@media (min-width:2000px){
+    body{
+        font-size:165%;
+    }
+}
+
+@media (min-width:2300px){
+    body{
+        font-size:180%;
+    }
+}
+
+@media (min-width:2600px){
+    body{
+        font-size:200%;
+    }
+}
+@media (min-width:2900px){
+    body{
+        font-size:220%;
+    }
+}
+@media (min-width:3200px){
+    body{
+        font-size:240%;
+    }
+}
+@media (min-width:3500px){
+    body{
+        font-size:260%;
+    }
+}
