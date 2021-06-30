@@ -69,7 +69,7 @@
         <div class="contrainer-join oculto" id="contrainer-join">
           <button id="back">BACK</button>
           <form onsubmit="return false;" id="join-form">
-            <input type="text" placeholder="CODE ROOM" name="code" required pattern="^[A-Za-z\d]{6}$"/>
+            <input type="text" placeholder="CODE ROOM" name="code" required pattern="^[A-Za-z\d]{5,7}$"/>
             <button type="submit">JOIN</button>
           </form>
         </div>
@@ -132,6 +132,12 @@
       <div>
         <p>the player left the game</p>
         <button id="back-multiplayer">GO BACK</button>
+      </div>
+    </div>
+    <div class="error-loader oculto" id="error-loader">
+      <div>
+        <p>error de cargar, intentelo mas tarde.</p>
+        <button>OK</button>
       </div>
     </div>
     <div class="wait-player oculto" id="wait-player">

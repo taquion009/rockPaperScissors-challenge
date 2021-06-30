@@ -479,6 +479,7 @@ main .multiplayer .result button{
     background-color: #0000004f;
     top:0;
     left:0;
+    z-index: 999;
 }
 
 .loader > div{
@@ -537,6 +538,7 @@ main .multiplayer .result button{
     background-color: #0000004f;
     top:0;
     left:0;
+    z-index: 999;
 }
 
 .close-player > div{
@@ -584,6 +586,41 @@ main .multiplayer .result button{
 
 .wait-player > div > *{
     margin:1em auto;
+}
+
+.error-loader{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0000004f;
+    top:0;
+    left:0;
+    z-index: 999;
+}
+
+.error-loader > div{
+    width: 14em;
+    position:absolute;
+    top:calc(50% - 7em);
+    left:calc(50% - 7em);
+    background:#fff;
+    border-radius:1em;
+    text-align: center;
+    padding:2em
+}
+
+.error-loader > div > *{
+    margin:1em auto;
+}
+
+.error-loader > div button{
+    background:none;
+    outline: none;
+    border: none;
+    border-radius: .7em;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--Dark-Text);
 }
 
 @media (min-width:300px){

@@ -1,5 +1,4 @@
 let chatHash = "";
-let listMembers;
 // RTCPeerConnection
 let pc;
 // RTCDataChannel
@@ -13,20 +12,21 @@ const configuration = {
 };
 // Scaledrone room used for signaling
 let room;
-
-// TODO: Replace with your own channel ID
+// signaling Scaledrone
 let drone;
 // Scaledrone room name needs to be prefixed with 'observable-'
 let roomName = "";
-
-let selectRival = ""
+//Movement that the opponent selected.
+let selectRival = "";
+//Movement selected.
 let movement = "";
-let = "";
-let win = "";
-let text = "";
+//if the app is in multiplayer
+let multiplayerState = false;
 
-const $div = document.createElement("div");
+let intento = 0
+let loader = null
 
+//Element HTML
 const $multiplayer = document.getElementById("multiplayer");
 const $create = document.getElementById("create");
 const $join = document.getElementById("join");
@@ -42,6 +42,7 @@ const $code = document.getElementById("code");
 const $loader = document.getElementById("loader");
 const $exit = document.getElementById("exit");
 const $waitPlayer = document.getElementById("wait-player");
+const $errorLoader = document.getElementById("error-loader");
 const $contrainerModalMltiplayer = document.getElementById(
   "contrainer-modal-multiplayer"
 );
@@ -49,113 +50,139 @@ const $player1 = document.getElementById("player-1");
 const $name = document.querySelector("#name");
 const $player2 = document.getElementById("player-2");
 
-let multiplayerState = false;
+//reset hash
 location.hash = "";
 
-$loader.querySelector("button").addEventListener("click",()=>{
-  $loader.classList.add("oculto")
+// seccion go back
+$back.addEventListener("click", () => {
+  $optionMultiplayer.classList.remove("oculto");
+  $contrainerJoin.classList.add("oculto");
+});
+
+$loader.querySelector("button").addEventListener("click", () => {
+  $loader.classList.add("oculto");
+  clearInterval(loader)
   room.unsubscribe();
   drone.close();
-})
+});
 
-$exit.addEventListener("click",()=>{
+$errorLoader.querySelector("button").addEventListener("click", () => {
+  $loader.classList.add("oculto");
+  $errorLoader.classList.add("oculto");
+  clearInterval(loader)
+  room.unsubscribe();
+  drone.close();
+});
+
+document.getElementById("close-multiplayer").addEventListener("click", () => {
+  location.hash = "";
   $optionMultiplayer.classList.remove("oculto");
   $homeMultiplayer.classList.add("oculto");
   $multiplayer.style.padding = "2em";
   $multiplayer.style.margin = "2em auto auto auto";
   $contrainerModalMltiplayer.classList.add("oculto");
   $exit.classList.add("oculto");
+});
+
+const exit = () => {
+  $optionMultiplayer.classList.remove("oculto");
+  $homeMultiplayer.classList.add("oculto");
+  $multiplayer.style.padding = "2em";
+  $multiplayer.style.margin = "2em auto auto auto";
+  $contrainerModalMltiplayer.classList.add("oculto");
+  $battleMltiplayer.classList.add("oculto");
+  $exit.classList.add("oculto");
+  $closePlayer.classList.add("oculto");
+  $waitPlayer.classList.add("oculto");
   room.unsubscribe();
   drone.close();
-})
-
+};
+$exit.addEventListener("click", () => exit());
 //Multiplayer
 const multiplayer = (e) => {
-  const $battle = document.getElementById("battle");
-  const $home = document.getElementById("home");
-  const $score = document.getElementById("scode");
-  const $close = document.getElementById("close-multiplayer");
+  //reset
   let score = 0;
   $code.innerHTML = "";
   $score.innerHTML = score;
   location.hash = "";
 
+  //change from multiplayer to singleplayer or reverse
   if (multiplayerState) {
     $multiplayer.classList.add("oculto");
     $optionMultiplayer.classList.add("oculto");
     $homeMultiplayer.classList.add("oculto");
     $contrainerModalMltiplayer.classList.add("oculto");
+    $exit.classList.add("oculto");
     $home.classList.remove("oculto");
-    e.target.innerHTML = "MULTIPLAYER";
-    multiplayerState = false;
+    $waitPlayer.classList.add("oculto");
     $multiplayer.style.padding = "2em";
     $multiplayer.style.margin = "2em auto auto auto";
-    room.unsubscribe();
-    $exit.classList.add("oculto")
-    $waitPlayer.classList.add("oculto")
+    if(room)room.unsubscribe();
+    e.target.innerHTML = "MULTIPLAYER";
+    multiplayerState = false;
   } else {
-    e.target.innerHTML = "SINGLEPLAYER";
     $home.classList.add("oculto");
     $battle.classList.add("oculto");
     $optionMultiplayer.classList.remove("oculto");
     $multiplayer.classList.remove("oculto");
+    e.target.innerHTML = "SINGLEPLAYER";
     multiplayerState = true;
   }
-
-  const testName = () => {
-    return !/^[a-z\d\s]{1,15}$/gi.test($name.value);
-  };
-
-  //Create room
-  $create.addEventListener("click", () => {
-    if (testName()) return null;
-    location.hash = Math.floor(Math.random() * 0xffffff).toString(16);
-    $optionMultiplayer.classList.add("oculto");
-    $homeMultiplayer.classList.remove("oculto");
-    $multiplayer.style.padding = "0";
-    $multiplayer.style.margin = "0 auto";
-    $contrainerModalMltiplayer.classList.remove("oculto");
-    $code.innerHTML = "code:" + location.hash.substring(1);
-    $player1.innerHTML = $name.value;
-    chatHash = location.hash.substring(1);
-    startJoin();
-  });
-
-  $back.addEventListener("click", () => {
-    $optionMultiplayer.classList.remove("oculto");
-    $contrainerJoin.classList.add("oculto");
-  });
-
-  $close.addEventListener("click", () => {
-    location.hash = "";
-    $optionMultiplayer.classList.remove("oculto");
-    $homeMultiplayer.classList.add("oculto");
-    $multiplayer.style.padding = "2em";
-    $multiplayer.style.margin = "2em auto auto auto";
-    $contrainerModalMltiplayer.classList.add("oculto");
-    $exit.classList.add("oculto")
-  });
-  //join room
-  $join.addEventListener("click", () => {
-    if (testName()) return null;
-    $optionMultiplayer.classList.add("oculto");
-    $contrainerJoin.classList.remove("oculto");
-  });
-
-  $joinForm.addEventListener("submit", async (e) => {
-    location.hash = await e.target.code.value;
-    chatHash = await location.hash.substring(1);
-    $player1.innerHTML = $name.value;
-    $loader.classList.remove("oculto")
-    startJoin();
-  });
 };
+//if the name is true
+const testName = () => {
+  return !/^[a-z\d\s]{1,15}$/gi.test($name.value);
+};
+//Create room
+$create.addEventListener("click", () => {
+  if (testName()) return null;
+  location.hash = Math.floor(Math.random() * 0xffffff).toString(16);
+  $optionMultiplayer.classList.add("oculto");
+  $homeMultiplayer.classList.remove("oculto");
+  $contrainerModalMltiplayer.classList.remove("oculto");
+  $multiplayer.style.padding = "0";
+  $multiplayer.style.margin = "0 auto";
+  $code.innerHTML = "code:" + location.hash.substring(1);
+  $player1.innerHTML = $name.value;
+  chatHash = location.hash.substring(1);
+  startGame(false);
+});
 
-const startJoin = () => {
+//join room
+$join.addEventListener("click", () => {
+  if (testName()) return null;
+  $optionMultiplayer.classList.add("oculto");
+  $contrainerJoin.classList.remove("oculto");
+});
+$joinForm.addEventListener("submit", async (e) => {
+  location.hash = await e.target.code.value;
+  chatHash = await location.hash.substring(1);
+  $player1.innerHTML = $name.value;
+  $loader.classList.remove("oculto");
+  startGame(true);
+});
+
+//start game in multiplayer
+const startGame = (join) => {
+  if(join){
+    loader = setTimeout(() => {
+      if(intento > 5){
+        clearInterval(loader)
+        intento = 0
+        $errorLoader.classList.remove("oculto");
+        $loader.classList.add("oculto");
+        return;
+      }
+      room.unsubscribe();
+      drone.close();
+      console.log(intento + " intento")
+      startGame(true);
+      intento++
+    }, 5000);
+  }
   drone = new ScaleDrone("yiS12Ts5RdNhebyM");
   roomName = "observable-" + chatHash;
 
-  console.log("members");
   // Wait for Scaledrone signaling server to connect
   drone.on("open", (error) => {
     if (error) {
@@ -166,9 +193,6 @@ const startJoin = () => {
       if (error) {
         return console.error(error);
       }
-      console.log(
-        "Connected to signaling server - ya esta conectado con el servidor o con sala"
-      );
     });
     // We're connected to the room and received an array of 'members'
     // connected to the room (including us). Signaling server is ready.
@@ -178,8 +202,6 @@ const startJoin = () => {
       }
       // If we are the second user to connect to the room we will be creating the offer
       const isOfferer = members.length === 2;
-      listMembers = members.length;
-      console.log(members);
       startWebRTC(isOfferer);
     });
   });
@@ -194,7 +216,6 @@ function sendSignalingMessage(message) {
 }
 
 function startWebRTC(isOfferer) {
-  console.log("Starting WebRTC in as", isOfferer ? "offerer" : "waiter");
   pc = new RTCPeerConnection(configuration);
 
   // 'onicecandidate' notifies us whenever an ICE agent needs to deliver a
@@ -206,7 +227,6 @@ function startWebRTC(isOfferer) {
   };
 
   if (isOfferer) {
-    console.log("es oferente");
     // If user is offerer let them create a negotiation offer and set up the data channel
     pc.onnegotiationneeded = () => {
       pc.createOffer(localDescCreated, (error) => console.error(error));
@@ -214,7 +234,6 @@ function startWebRTC(isOfferer) {
     dataChannel = pc.createDataChannel("chat");
     setupDataChannel();
   } else {
-    console.log("no es oferente");
     // If user is not the offerer let wait for a data channel
     pc.ondatachannel = (event) => {
       dataChannel = event.channel;
@@ -231,29 +250,23 @@ function setupDataChannel() {
   dataChannel.onclose = checkDataChannelState;
   dataChannel.onmessage = (event) =>
     insertMessageToDOM(JSON.parse(event.data), false);
-  room.on('member_leave', function(member) {
-    $closePlayer.classList.remove("oculto")
-    $waitPlayer.classList.add("oculto")
-    $exit.classList.add("oculto")
-    $backMultiplayer.addEventListener("click", ()=>{
-      drone.close();
-      room.unsubscribe();
-      $optionMultiplayer.classList.remove("oculto")
-      $closePlayer.classList.add("oculto")
-      $homeMultiplayer.classList.add("oculto")
-      $battleMltiplayer.classList.add("oculto")
-
-    })
+  //if it exits the player
+  room.on("member_leave", function (member) {
+    $closePlayer.classList.remove("oculto");
+    $waitPlayer.classList.add("oculto");
+    $exit.classList.add("oculto");
+    $backMultiplayer.addEventListener("click", () => {
+      exit();
+    });
   });
 }
 
 function checkDataChannelState() {
-  console.log("WebRTC channel state is:", dataChannel.readyState);
   if (dataChannel.readyState === "open") {
-    insertMessageToDOM({ content: "WebRTC data channel is now open" });
-    score = 0
-    $loader.classList.add("oculto")
-    $exit.classList.remove("oculto")
+    clearInterval(loader)
+    score = 0;
+    $loader.classList.add("oculto");
+    $exit.classList.remove("oculto");
     $multiplayerButton.classList.remove("oculto");
     $score.innerHTML = score;
     const data = {
@@ -264,17 +277,16 @@ function checkDataChannelState() {
     };
     dataChannel.send(JSON.stringify(data));
   } else if (dataChannel.readyState === "closed") {
-    $closePlayer.classList.remove("oculto")
-    $waitPlayer.classList.add("oculto")
-    $exit.classList.add("oculto")
-    $backMultiplayer.addEventListener("click", ()=>{
+    $closePlayer.classList.remove("oculto");
+    $waitPlayer.classList.add("oculto");
+    $exit.classList.add("oculto");
+    $backMultiplayer.addEventListener("click", () => {
       room.unsubscribe();
-      $optionMultiplayer.classList.remove("oculto")
-      $closePlayer.classList.add("oculto")
-      $homeMultiplayer.classList.add("oculto")
-      $battleMltiplayer.classList.add("oculto")
-
-    })
+      $optionMultiplayer.classList.remove("oculto");
+      $closePlayer.classList.add("oculto");
+      $homeMultiplayer.classList.add("oculto");
+      $battleMltiplayer.classList.add("oculto");
+    });
   }
 }
 
@@ -290,10 +302,8 @@ function startListentingToSignals() {
       pc.setRemoteDescription(
         new RTCSessionDescription(message.sdp),
         () => {
-          console.log("pc.remoteDescription.type", pc.remoteDescription.type);
           // When receiving an offer lets answer it
           if (pc.remoteDescription.type === "offer") {
-            console.log("Answering offer");
             pc.createAnswer(localDescCreated, (error) => console.error(error));
           }
         },
@@ -316,23 +326,22 @@ function localDescCreated(desc) {
 
 function insertMessageToDOM(options, isFromMe) {
   if (isFromMe) return;
-  console.log(options.content);
   if (options.content.name) {
-    $player2.innerHTML = options.content.name;
     $optionMultiplayer.classList.add("oculto");
     $homeMultiplayer.classList.remove("oculto");
-    $multiplayer.style.padding = "0";
-    $multiplayer.style.margin = "0 auto";
     $contrainerModalMltiplayer.classList.add("oculto");
     $optionMultiplayer.classList.add("oculto");
     $contrainerJoin.classList.add("oculto");
+    $multiplayer.style.padding = "0";
+    $multiplayer.style.margin = "0 auto";
+    $player2.innerHTML = options.content.name;
   }
   if (options.content.momimiento) {
     selectRival = options.content.momimiento;
     $battle.innerHTML = "";
     if (selectRival && movement) {
-      $waitPlayer.classList.add("oculto")
-      handleBattle()
+      $waitPlayer.classList.add("oculto");
+      handleBattle();
     }
   }
 }
@@ -351,27 +360,25 @@ const handleMovementMultiplayer = (selectMovement) => {
       momimiento: movement,
     },
   };
-  $waitPlayer.classList.remove("oculto")
+  $waitPlayer.classList.remove("oculto");
   if (selectRival && movement) {
-    $waitPlayer.classList.add("oculto")
-    handleBattle()
+    $waitPlayer.classList.add("oculto");
+    handleBattle();
   }
   dataChannel.send(JSON.stringify(data));
 };
 
-
 //get result
-const resultMultiplayer  = (text) => {
+const resultMultiplayer = (text) => {
   const $result = document.createElement("div");
   $result.classList.add("result");
   $result.id = "result";
   const $h3 = document.createElement("h3");
   $h3.innerHTML = text;
-  
+
   const $button = document.createElement("button");
-  
   $button.innerHTML = "PLAY AGAIN";
-  
+
   $result.appendChild($h3);
   $result.appendChild($button);
   //go back
@@ -379,13 +386,12 @@ const resultMultiplayer  = (text) => {
     $homeMultiplayer.classList.remove("oculto");
     $battleMltiplayer.classList.add("oculto");
     $multiplayerButton.classList.remove("oculto");
-    $exit.classList.remove("oculto")
+    $exit.classList.remove("oculto");
   });
-  return $result
+  return $result;
 };
 //get rival
 const rivalMultiplayer = ($rival) => {
-  console.log($rival,selectRival)
   $rival.classList.remove("movementWait");
   $rival.classList.add("movement");
   $rival.classList.add(selectRival);
@@ -396,7 +402,7 @@ const rivalMultiplayer = ($rival) => {
   <h4>THE HOUSE PICKED</h4>
   </div>
   `;
-  return $rival
+  return $rival;
 };
 //get player
 const playerMultiplayer = ($player) => {
@@ -409,9 +415,10 @@ const playerMultiplayer = ($player) => {
   </div>
   <h4>YOU PICKED</h4>
   `;
-  return $player
+  return $player;
 };
 
+const $div = document.createElement("div");
 const handleBattle = () => {
   $div.innerHTML = "";
   const $rival = document.createElement("div");
@@ -419,35 +426,35 @@ const handleBattle = () => {
   const $player = document.createElement("div");
   $player.classList.add("movement");
   $player.classList.add(movement);
-  $exit.classList.add("oculto")
+  $exit.classList.add("oculto");
   let win = "";
   let text = "";
-  
+
   $battle.innerHTML = "";
   if (
     (movement === "rock" && selectRival === "scissors") ||
     (movement === "scissors" && selectRival === "paper") ||
     (movement === "paper" && selectRival === "rock")
-    ) {
-      text = "YOU WIN";
-      win = "win";
-      score++;
-    } else if (movement === selectRival) {
-      text = "TIE";
-      win = "tie";
-    } else {
-      text = "YOU LOSE";
-      win = "lose";
-      score--;
-    }
-    
+  ) {
+    text = "YOU WIN";
+    win = "win";
+    score++;
+  } else if (movement === selectRival) {
+    text = "TIE";
+    win = "tie";
+  } else {
+    text = "YOU LOSE";
+    win = "lose";
+    score--;
+  }
+
   $div.classList.add("contrainer-movement-select");
   $div.appendChild(playerMultiplayer($player));
   $div.appendChild($rival);
 
   setTimeout(() => {
-    $div.appendChild(resultMultiplayer (text));
-    rivalMultiplayer( $rival, win);
+    $div.appendChild(resultMultiplayer(text));
+    rivalMultiplayer($rival, win);
     if (win === "win") {
       $player.classList.add("win");
       $player.querySelector(".container-img").addEventListener(
@@ -471,10 +478,10 @@ const handleBattle = () => {
         false
       );
     }
-    
+
     $score.innerHTML = score;
-    selectRival = ""
-    movement = ""
+    selectRival = "";
+    movement = "";
   }, 1000);
 
   $battleMltiplayer.appendChild($div);

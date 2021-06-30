@@ -144,4 +144,3 @@ $home
 
 //rest multiplayer
 $multiplayerButton.addEventListener("click", (e) => score = 0);
-
