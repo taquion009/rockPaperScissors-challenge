@@ -104,7 +104,6 @@ main .contrainer-movement,main .contrainer-movement-select{
     position:relative;
     margin:auto;
     margin-top:1em;
-    width: fit-content;
 }
 
 main .contrainer-movement-select{
@@ -622,7 +621,17 @@ main .multiplayer .result button{
     font-weight: 700;
     color: var(--Dark-Text);
 }
+#home{
+    max-width: 35em;
+    margin: auto;
+    width: 100%;
+}
 
+#home-multiplayer{
+    max-width: 35em;
+    margin: auto;
+    width: 100%;
+}
 @media (min-width:300px){
     body{
         font-size:100%;
