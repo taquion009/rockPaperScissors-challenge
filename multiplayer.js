@@ -71,7 +71,6 @@ $errorLoader.querySelector("button").addEventListener("click", () => {
   $errorLoader.classList.add("oculto");
   clearInterval(loader)
   room.unsubscribe();
-  drone.close();
 });
 
 document.getElementById("close-multiplayer").addEventListener("click", () => {
@@ -94,14 +93,14 @@ const exit = () => {
   $exit.classList.add("oculto");
   $closePlayer.classList.add("oculto");
   $waitPlayer.classList.add("oculto");
+  $multiplayerButton.classList.remove("oculto");
   room.unsubscribe();
-  drone.close();
 };
 $exit.addEventListener("click", () => exit());
 //Multiplayer
 const multiplayer = (e) => {
   //reset
-  let score = 0;
+  score = 0;
   $code.innerHTML = "";
   $score.innerHTML = score;
   location.hash = "";
@@ -155,7 +154,7 @@ $join.addEventListener("click", () => {
   $contrainerJoin.classList.remove("oculto");
 });
 $joinForm.addEventListener("submit", async (e) => {
-  location.hash = await e.target.code.value;
+  location.hash = await e.target.codeRoom.value;
   chatHash = await location.hash.substring(1);
   $player1.innerHTML = $name.value;
   $loader.classList.remove("oculto");
@@ -174,7 +173,6 @@ const startGame = (join) => {
         return;
       }
       room.unsubscribe();
-      drone.close();
       console.log(intento + " intento")
       startGame(true);
       intento++

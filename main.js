@@ -1,5 +1,5 @@
 const $score = document.getElementById("scode");
-const $rules = document.getElementById("rules");
+const $rules = document.getElementById("rules-button");
 const $modal = document.getElementById("contrainer-modal");
 const $close = document.getElementById("close");
 const $home = document.getElementById("home");
@@ -7,8 +7,10 @@ const $battle = document.getElementById("battle");
 const $multiplayerButton = document.querySelector("#button-multiplayer")
 let score = 0
 
+console.log($modal,$rules)
 //modal
-$rules.addEventListener("click", () => $modal.classList.toggle("oculto"));
+$rules.addEventListener("click", () => {
+  $modal.classList.toggle("oculto")});
 $close.addEventListener("click", () => $modal.classList.toggle("oculto"));
 $modal.addEventListener(
   "click",

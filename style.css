@@ -21,7 +21,7 @@ html{
 
 body{
     background:var(--Radial-Gradient);
-    font-size:90%;
+    font-size: 4.5vmin;
     box-sizing:border-box;
     font-family:'Barlow Semi Condensed', sans-serif;
     font-weight:600;
@@ -49,26 +49,26 @@ body{
 header{
     margin: 2em;
     display: flex;
-    padding: .5em;
+    padding: 1em;
     align-items: center;
     justify-content: space-between;
-    border:2px solid var(--Header-Outline);
-    border-radius:5px;
+    border: .2em solid var(--Header-Outline);
+    border-radius: .7em;
     max-width: 1366px;
-    margin-top:0;
-    width: calc(100% - 4rem);
+    margin-top: 0;
+    width: calc(100% - 4em);
 }
 
 header > img{
     width:5em;
-    margin-left:7px;
+    margin-left:.35em;
 }
 
 header .contrainer-scode{
     width:5em;
     height:4.5em;
     background-color:#ffffff;
-    border-radius:5px;
+    border-radius:.2em;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -124,16 +124,21 @@ main .contrainer-movement::after{
 }
 
 main .contrainer-movement .movement,main .contrainer-movement-select .movement{
+    background: none;
+    border: none;
+    outline: none;
+    display: inline-block;
     width: 7em;
-    height:7em;
+    height: 7em;
     border-radius: 100%;
-    background-color:#ffffff;
-    display:flex;
+    background-color: #ffffff;
+    display: flex;
     align-items: center;
     justify-content: center;
     margin: 1em;
-    cursor:pointer;
+    cursor: pointer;
     position: relative;
+    padding: 0;
 }
 
 main .contrainer-movement-select .movement{
@@ -158,7 +163,7 @@ main .contrainer-movement-select .movement h4{
 main .contrainer-movement .paper,main .contrainer-movement-select .paper{
     border-radius: 50%;
     background-image: linear-gradient(var(--Paper-Gradient1),var(--Paper-Gradient2));
-    box-shadow: 2px 5px hsl(230deg 70% 38%);
+    box-shadow: .2em .25em hsl(230deg 70% 38%);
     background-origin: border-box;
     background-clip: content-box, border-box;
 }
@@ -166,7 +171,7 @@ main .contrainer-movement .paper,main .contrainer-movement-select .paper{
 main .contrainer-movement .rock,main .contrainer-movement-select .rock{
     border-radius: 50%;
     background-image: linear-gradient(var(--Rock-Gradient1),var(--Rock-Gradient2));
-    box-shadow: 2px 5px hsl(349deg 73% 29%);
+    box-shadow: .2em .25em hsl(349deg 73% 29%);
     background-origin: border-box;
     background-clip: content-box, border-box;
 }
@@ -174,7 +179,7 @@ main .contrainer-movement .rock,main .contrainer-movement-select .rock{
 main .contrainer-movement .scissors,main .contrainer-movement-select .scissors{
     border-radius: 50%;
     background-image: linear-gradient(var(--Scissors-Gradient1),var(--Scissors-Gradient2));
-    box-shadow: 2px 5px hsl(39deg 64% 35%);
+    box-shadow: .2em .25em hsl(39deg 64% 35%);
     background-origin: border-box;
     background-clip: content-box, border-box;
 }
@@ -187,7 +192,7 @@ main .contrainer-movement .container-img,main .contrainer-movement-select  .cont
     display:flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0px 6px 0px 0px hsl(0deg 0% 84%);
+    box-shadow: inset 0px .3em 0px 0px hsl(0deg 0% 84%);
 }
 
 main .contrainer-movement .container-img img{
@@ -219,15 +224,15 @@ main .contrainer-movement-select  .container-img img{
     margin: auto;
     display: block;
     padding: .8em 0em;
-    border: 1px solid #eee;
+    border: .1em solid #eee;
     background: none;
     color: #eee;
     font-size: 1em;
     outline: none;
-    border-radius: 5px;
-    letter-spacing: 2px;
+    border-radius: .2em;
+    letter-spacing: .1em;
     cursor: pointer;
-    margin:1rem auto;
+    margin:1em auto;
     width: 13em;
 }
 .contrainer-rules #button-multiplayer{
@@ -314,7 +319,7 @@ main .multiplayer{
     align-items: center;
     flex-wrap: nowrap;
     justify-content: center;
-    border-radius: 5px;
+    border-radius: .2em;
     /* max-width: 35em; */
     margin: auto;
     margin-top: 1em;
@@ -325,15 +330,15 @@ main .multiplayer button{
     margin: auto;
     display: block;
     padding: .8em 3em;
-    border: 1px solid #eee;
+    border: .1em solid #eee;
     background: none;
     color: #eee;
     font-size: 1em;
     outline: none;
-    border-radius: 5px;
-    letter-spacing: 2px;
+    border-radius: .2em;
+    letter-spacing: .1em;
     cursor: pointer;
-    margin:1rem auto;
+    margin:1em auto;
 }
 
 main .multiplayer .option-multiplayer{
@@ -350,14 +355,14 @@ main .multiplayer input[type="text"]{
     margin: auto;
     display: block;
     padding: .8em 3em;
-    border: 1px solid #eee;
+    border: .1em solid #eee;
     background: none;
     color: #eee;
     font-size: 1em;
     outline: none;
-    border-radius: 5px;
-    letter-spacing: 2px;
-    margin: 1rem auto;
+    border-radius: .2em;
+    letter-spacing: .1em;
+    margin: 1em auto;
     max-width: 100%;
 }
 main .multiplayer .contrainer-join{
@@ -632,14 +637,14 @@ main .multiplayer .result button{
     margin: auto;
     width: 100%;
 }
-@media (min-width:300px){
+/* @media (min-width:300px){
     body{
         font-size:100%;
     }
-}
+} */
 @media (min-width:700px){
     body{
-        font-size:90%;
+        font-size: 2.5vmin;
         justify-content: flex-start;
     }
 
@@ -663,7 +668,7 @@ main .multiplayer .result button{
         max-width:35em;
         margin:0 auto;
         width:100%;
-        border:4px solid var(--Header-Outline);
+        border:.2em solid var(--Header-Outline);
     }
 
     main .contrainer-movement .movement{
@@ -688,7 +693,7 @@ main .multiplayer .result button{
     }
     header .contrainer-scode{
         width:7em;
-        height:6.5em;
+        height:5.5em;
     }
 
     .contrainer-rules{
@@ -713,7 +718,7 @@ main .multiplayer .result button{
     }
 
 }
-
+/* 
 @media (min-width:1500px){
     body{
         font-size:100%;
@@ -763,4 +768,4 @@ main .multiplayer .result button{
     body{
         font-size:260%;
     }
-}
+} */

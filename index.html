@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Rock Paper Scissors</title>
     <script
-      type="text/javascript"
       src="https://cdn.scaledrone.com/scaledrone.min.js"
     ></script>
     <link rel="stylesheet" href="style.css" />
@@ -19,29 +18,29 @@
         class="title"
       />
       <div class="contrainer-scode">
-        <sapn class="scode">score</sapn>
+        <b class="scode">score</b>
         <span id="scode" class="scode-number">0</span>
       </div>
     </header>
     <main>
       <div id="home">
         <div class="contrainer-movement">
-          <div class="movement paper" data-movement="paper">
+          <button class="movement paper" data-movement="paper">
             <div class="container-img">
-              <img src="./assets/img/icon-paper.svg" />
+              <img src="./assets/img/icon-paper.svg" alt="paper" />
             </div>
-          </div>
-          <div class="movement scissors" data-movement="scissors">
+          </button>
+          <button class="movement scissors" data-movement="scissors">
             <div class="container-img">
-              <img src="./assets/img/icon-scissors.svg" />
+              <img src="./assets/img/icon-scissors.svg" alt="scissors" />
             </div>
-          </div>
+          </button>
           <div class="w-100">
-            <div class="movement rock" data-movement="rock">
+            <button class="movement rock" data-movement="rock">
               <div class="container-img">
-                <img src="./assets/img/icon-rock.svg" />
+                <img src="./assets/img/icon-rock.svg" alt="rock" />
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </div>
@@ -54,14 +53,14 @@
       <div class="contrainer-modal oculto" id="contrainer-modal">
         <div class="modal" id="modal">
           <h3>RULES</h3>
-          <img class="rules" src="assets/img/image-rules.svg" />
-          <img class="close" id="close" src="assets/img/icon-close.svg" />
+          <img class="rules" alt="rules" id="rules" src="assets/img/image-rules.svg" />
+          <img class="close" alt="close" id="close" src="assets/img/icon-close.svg" />
         </div>
       </div>
       <div id="multiplayer" class="multiplayer oculto">
         <div class="option-multiplayer" id="option-multiplayer">
           <form onsubmit="return false;">
-          <input type="text" placeholder="NAME" name="name" id="name" required pattern="^[A-Za-z\d\s]{1,15}$" title="Three letter country code"/>
+          <input type="text" title="this form field is name" placeholder="NAME" name="name" id="name" required pattern="^[A-Za-z\d\s]{1,15}$" title="Three letter country code"/>
           <button type="submit" id="create">CREATE ROOM</button>
           <button type="submit" id="join">JOIN ROOM</button>
           </form>
@@ -69,14 +68,8 @@
         <div class="contrainer-join oculto" id="contrainer-join">
           <button id="back">BACK</button>
           <form onsubmit="return false;" id="join-form">
-            <input type="text" placeholder="CODE ROOM" name="code" required pattern="^[A-Za-z\d]{5,7}$"/>
+            <input type="text" title="this form field is code room" placeholder="CODE ROOM" name="codeRoom" required pattern="^[A-Za-z\d]{5,7}$"/>
             <button type="submit">JOIN</button>
-          </form>
-        </div>
-        <div class="content oculto">
-          <form class="footer" onsubmit="return false;">
-            <input type="text" placeholder="Your message.." />
-            <button type="submit">Enter</button>
           </form>
         </div>
         <div id="home-multiplayer" class="oculto">
@@ -86,22 +79,22 @@
             <div class="player" id="player-2">anonymous</div>
           </div>
           <div class="contrainer-movement">
-            <div class="movement paper" data-movement="paper">
+            <button class="movement paper" data-movement="paper">
               <div class="container-img">
-                <img src="./assets/img/icon-paper.svg" />
+                <img src="./assets/img/icon-paper.svg" alt="paper" />
               </div>
-            </div>
-            <div class="movement scissors" data-movement="scissors">
+            </button>
+            <button class="movement scissors" data-movement="scissors">
               <div class="container-img">
-                <img src="./assets/img/icon-scissors.svg" />
+                <img src="./assets/img/icon-scissors.svg" alt="scissors" />
               </div>
-            </div>
+            </button>
             <div class="w-100">
-              <div class="movement rock" data-movement="rock">
+              <button class="movement rock" data-movement="rock">
                 <div class="container-img">
-                  <img src="./assets/img/icon-rock.svg" />
+                  <img src="./assets/img/icon-rock.svg" alt="rock" />
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -113,14 +106,14 @@
       class="contrainer-modal-multiplayer oculto"
       id="contrainer-modal-multiplayer"
     >
-      <div class="modal" id="modal">
+      <div class="modal" id="modal-code">
         <h3 id="code">code: 23j4h3</h3>
         <p>waiting player...</p>
-        <img class="close-multiplayer" id="close-multiplayer" src="assets/img/icon-close.svg" />
+        <img class="close-multiplayer" alt="close-multiplayer" id="close-multiplayer" src="assets/img/icon-close.svg" />
       </div>
     </div>
     <div class="contrainer-rules">
-      <button id="rules">RULES</button>
+      <button id="rules-button">RULES</button>
       <button id="button-multiplayer">MULTIPLAYER</button>
       <button id="exit" class="exit oculto">EXIT</button>
     </div>
@@ -136,7 +129,7 @@
     </div>
     <div class="error-loader oculto" id="error-loader">
       <div>
-        <p>error de cargar, intentelo mas tarde.</p>
+        <p>loading failed, please try again later.</p>
         <button>OK</button>
       </div>
     </div>
